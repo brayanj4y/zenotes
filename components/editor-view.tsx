@@ -104,7 +104,16 @@ export default function EditorView({ noteId, onDetailView }: EditorViewProps) {
             <Star className="h-5 w-5" fill={isFavorite ? "currentColor" : "none"} />
           </Button>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
+          <Button
+            variant="ghost"
+            size="icon"
+            className={`h-8 w-8 rounded-md ${isFavorite ? "text-yellow-400" : "text-gray-400"}`}
+            onClick={handleToggleFavorite}
+            title="Toggle favorite"
+          >
+            <Star className="h-5 w-5" fill={isFavorite ? "currentColor" : "none"} />
+          </Button>
           <Button
             variant="ghost"
             size="icon"
