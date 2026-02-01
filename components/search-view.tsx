@@ -39,7 +39,7 @@ export function SearchView({ onNoteSelect }: SearchViewProps) {
               placeholder="Search notes..."
               className="h-10 border-gray-200"
             />
-            <Button className="bg-black text-white hover:bg-black/90" onClick={handleSearch}>
+            <Button className="bg-gray-900 text-white hover:bg-gray-900/90" onClick={handleSearch}>
               <Search className="h-4 w-4" />
             </Button>
           </div>

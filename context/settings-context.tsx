@@ -7,14 +7,12 @@ interface Settings {
   email: string
   fontSize: number
   autoSave: boolean
-  darkMode: boolean
   defaultView: "split" | "edit" | "preview"
 }
 
 interface SettingsContextType {
   settings: Settings
   updateSettings: (updates: Partial<Settings>) => void
-  toggleDarkMode: () => void
 }
 
 const defaultSettings: Settings = {
@@ -22,7 +20,6 @@ const defaultSettings: Settings = {
   email: "alex@zenotes.app",
   fontSize: 14,
   autoSave: true,
-  darkMode: false,
   defaultView: "split",
 }
 
@@ -61,29 +58,8 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     setSettings((prev) => ({ ...prev, ...updates }))
   }
 
-  // Toggle dark mode
-  const toggleDarkMode = () => {
-    setSettings((prev) => ({ ...prev, darkMode: !prev.darkMode }))
-
-    // Apply dark mode to the document
-    if (!settings.darkMode) {
-      document.documentElement.classList.add("dark")
-    } else {
-      document.documentElement.classList.remove("dark")
-    }
-  }
-
-  // Apply dark mode on initial load
-  useEffect(() => {
-    if (settings.darkMode) {
-      document.documentElement.classList.add("dark")
-    } else {
-      document.documentElement.classList.remove("dark")
-    }
-  }, [settings.darkMode])
-
   return (
-    <SettingsContext.Provider value={{ settings, updateSettings, toggleDarkMode }}>{children}</SettingsContext.Provider>
+    <SettingsContext.Provider value={{ settings, updateSettings }}>{children}</SettingsContext.Provider>
   )
 }
 

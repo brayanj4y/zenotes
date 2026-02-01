@@ -41,7 +41,7 @@ export function LoginPage() {
               <Github className="mr-2 h-4 w-4" />
               Continue with GitHub
             </Button>
-            <Button asChild className="w-full bg-black text-white hover:bg-black/90">
+            <Button asChild className="w-full bg-gray-900 text-white hover:bg-gray-900/90">
               <Link href="/dashboard">Sign in as Guest</Link>
             </Button>
           </div>

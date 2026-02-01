@@ -51,7 +51,7 @@ export default function Dashboard() {
       )}
       {activeView === "settings" && <SettingsView />}
       {activeView === "detail" && selectedNote && (
-        <NoteDetailView noteId={selectedNote} onClose={() => setActiveView("editor")} />
+        <NoteDetailView noteId={selectedNote} onClose={() => setActiveView("notes")} />
       )}
       {activeView === "search" && <SearchView onNoteSelect={handleNoteSelect} />}
       {activeView === "tags" && <TagsView onNoteSelect={handleNoteSelect} />}
