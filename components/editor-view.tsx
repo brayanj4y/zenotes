@@ -2,10 +2,9 @@
 
 import { useState, useEffect, useCallback } from "react"
 import { Button } from "@/components/ui/button"
-import { Save, Keyboard, Info, Star, Sparkles } from "lucide-react"
+import { Keyboard, Info, Star } from "lucide-react"
 import { useNotes } from "@/context/notes-context"
 import { useSettings } from "@/context/settings-context"
-import { summarizeNote } from "@/app/actions"
 import { useToast } from "@/hooks/use-toast"
 import { RichTextEditor } from "./rich-text-editor"
 import { KeyboardShortcutsDialog } from "./keyboard-shortcuts-dialog"
@@ -27,11 +26,9 @@ export default function EditorView({ noteId, onDetailView }: EditorViewProps) {
   const [tags, setTags] = useState<string[]>([])
   const [newTag, setNewTag] = useState("")
   const [isLoaded, setIsLoaded] = useState(false)
-  const [isSummarizing, setIsSummarizing] = useState(false)
   const [isShortcutsDialogOpen, setIsShortcutsDialogOpen] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const lastSavedContentRef = { current: "" }
-  const autoSaveTimerRef = { current: null as NodeJS.Timeout | null }
 
   // Load note data
   useEffect(() => {
@@ -67,43 +64,6 @@ export default function EditorView({ noteId, onDetailView }: EditorViewProps) {
     toggleFavorite(noteId)
   }, [isFavorite, noteId, toggleFavorite])
 
-  // Handle AI summarization
-  const handleSummarize = useCallback(async () => {
-    if (!note || content.trim().length < 50) {
-      toast({
-        title: "Cannot summarize",
-        description: "Note content is too short to summarize",
-        variant: "destructive",
-      })
-      return
-    }
-
-    try {
-      setIsSummarizing(true)
-      const summary = await summarizeNote(content)
-
-      if (summary) {
-        const summaryText = `<h2>Summary of "${title}"</h2><p>${summary}</p><hr><h2>Original Content</h2><p>${content}</p>`
-        setContent(summaryText)
-        updateNote(noteId, { content: summaryText })
-        lastSavedContentRef.current = summaryText
-
-        toast({
-          title: "Summary generated",
-          description: "Your note has been summarized successfully",
-        })
-      }
-    } catch (error) {
-      toast({
-        title: "Summarization failed",
-        description: error instanceof Error ? error.message : "Failed to generate summary",
-        variant: "destructive",
-      })
-    } finally {
-      setIsSummarizing(false)
-    }
-  }, [note, content, title, noteId, updateNote, toast])
-
   // Function to add a new tag
   const handleAddTag = () => {
     if (newTag && !tags.includes(newTag)) {
@@ -117,34 +77,6 @@ export default function EditorView({ noteId, onDetailView }: EditorViewProps) {
   const handleRemoveTag = (tagToRemove: string) => {
     setTags(tags.filter((tag) => tag !== tagToRemove))
     removeTag(noteId, tagToRemove)
-  }
-
-  // Export note as HTML file
-  const exportNote = () => {
-    if (!note) return
-
-    const filename = `${title.replace(/[^a-z0-9]/gi, "_").toLowerCase()}.html`
-    const blob = new Blob([`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${title}</title><style>body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; }</style></head><body><h1>${title}</h1>${content}</body></html>`], {
-      type: "text/html",
-    })
-    const url = URL.createObjectURL(blob)
-
-    const a = document.createElement("a")
-    a.href = url
-    a.download = filename
-    document.body.appendChild(a)
-    a.click()
-
-    // Cleanup
-    setTimeout(() => {
-      document.body.removeChild(a)
-      URL.revokeObjectURL(url)
-    }, 100)
-
-    toast({
-      title: "Note exported",
-      description: `Exported as ${filename}`,
-    })
   }
 
   if (!note) {
@@ -174,34 +106,13 @@ export default function EditorView({ noteId, onDetailView }: EditorViewProps) {
         </div>
         <div className="flex items-center gap-2">
           <Button
-            variant="outline"
-            size="sm"
-            className="h-8 rounded-md border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-            onClick={handleSummarize}
-            disabled={isSummarizing}
-            title="Generate summary"
-          >
-            <Sparkles className="mr-1 h-3.5 w-3.5" />
-            {isSummarizing ? "Summarizing..." : "Summarize"}
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="h-8 rounded-md border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-            onClick={exportNote}
-            title="Export note"
-          >
-            <Save className="mr-1 h-3.5 w-3.5" />
-            Export
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="h-8 rounded-md border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 rounded-md text-lg hover:bg-gray-100"
             onClick={handleSave}
-            title="Save"
+            title="Save note"
           >
-            Save
+            💾
           </Button>
           <Button
             variant="ghost"
@@ -252,7 +163,7 @@ export default function EditorView({ noteId, onDetailView }: EditorViewProps) {
       </div>
 
       <div className="flex-1 overflow-hidden">
-        <RichTextEditor value={content} onChange={setContent} fontSize={settings.fontSize} />
+        <RichTextEditor value={content} onChange={setContent} />
       </div>
 
       <KeyboardShortcutsDialog

@@ -2,8 +2,7 @@
 
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Search, Star } from "lucide-react"
+import { Star } from "lucide-react"
 import { useNotes } from "@/context/notes-context"
 import { formatDate } from "@/lib/utils"
 
@@ -12,16 +11,11 @@ interface SearchViewProps {
 }
 
 export function SearchView({ onNoteSelect }: SearchViewProps) {
-  const { searchNotes } = useNotes()
+  const { searchNotes, notes } = useNotes()
   const [searchQuery, setSearchQuery] = useState("")
-  const [results, setResults] = useState<ReturnType<typeof searchNotes>>([])
-  const [hasSearched, setHasSearched] = useState(false)
 
-  // Handle search
-  const handleSearch = () => {
-    setResults(searchNotes(searchQuery))
-    setHasSearched(true)
-  }
+  // Get results based on search query, or show all notes if empty
+  const results = searchQuery.trim() === "" ? notes : searchNotes(searchQuery)
 
   return (
     <div className="flex h-full flex-col">
@@ -35,28 +29,23 @@ export function SearchView({ onNoteSelect }: SearchViewProps) {
             <Input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
               placeholder="Search notes..."
               className="h-10 border-gray-200"
+              autoFocus
             />
-            <Button className="bg-gray-900 text-white hover:bg-gray-900/90" onClick={handleSearch}>
-              <Search className="h-4 w-4" />
-            </Button>
           </div>
         </div>
 
         <div className="mt-6">
-          {hasSearched && (
-            <h2 className="mb-4 text-sm font-medium text-gray-500">
-              {results.length} {results.length === 1 ? "result" : "results"}
-            </h2>
-          )}
+          <h2 className="mb-4 text-sm font-medium text-gray-500">
+            {results.length} {results.length === 1 ? "note" : "notes"}
+          </h2>
 
-          {hasSearched && results.length === 0 ? (
+          {results.length === 0 ? (
             <div className="rounded-md border border-gray-200 p-6 text-center">
-              <p className="text-gray-500">No results found</p>
+              <p className="text-gray-500">No notes found</p>
             </div>
-          ) : hasSearched ? (
+          ) : (
             <ul className="divide-y divide-gray-100 rounded-md border border-gray-200">
               {results.map((note) => (
                 <li
@@ -86,13 +75,6 @@ export function SearchView({ onNoteSelect }: SearchViewProps) {
                 </li>
               ))}
             </ul>
-          ) : (
-            <div className="flex h-64 items-center justify-center rounded-md border border-gray-200 p-6">
-              <div className="text-center">
-                <Search className="mx-auto h-8 w-8 text-gray-300" />
-                <p className="mt-2 text-gray-500">Search for notes by title, content, or tags</p>
-              </div>
-            </div>
           )}
         </div>
       </div>

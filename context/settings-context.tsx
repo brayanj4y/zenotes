@@ -5,7 +5,6 @@ import { createContext, useContext, useState, useEffect, type ReactNode } from "
 interface Settings {
   name: string
   email: string
-  fontSize: number
 }
 
 interface SettingsContextType {
@@ -16,7 +15,6 @@ interface SettingsContextType {
 const defaultSettings: Settings = {
   name: "Alex Kim",
   email: "alex@zenotes.app",
-  fontSize: 16,
 }
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined)

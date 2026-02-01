@@ -8,10 +8,9 @@ import { Bold, Italic, List, ListOrdered, Code, Heading2, Minus } from "lucide-r
 interface RichTextEditorProps {
   value: string
   onChange: (content: string) => void
-  fontSize: number
 }
 
-export function RichTextEditor({ value, onChange, fontSize }: RichTextEditorProps) {
+export function RichTextEditor({ value, onChange }: RichTextEditorProps) {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -144,7 +143,7 @@ export function RichTextEditor({ value, onChange, fontSize }: RichTextEditorProp
       <div className="flex-1 overflow-auto">
         <div
           className="p-6 font-sans outline-none focus:outline-none ProseMirror"
-          style={{ fontSize: `${fontSize}px`, lineHeight: 1.6 }}
+          style={{ fontSize: "16px", lineHeight: 1.6 }}
         >
           <EditorContent editor={editor} />
         </div>
