@@ -130,13 +130,13 @@ export function NewNoteView({ onNoteCreated }: NewNoteViewProps) {
 
           <div className="space-y-2">
             <label className="text-sm font-medium">Preview</label>
-            <div className="rounded-md border border-gray-200 p-4 h-48 overflow-auto">
+            <div className="rounded-md border border-gray-200 p-4 h-48 overflow-auto bg-gray-50">
               <div className="prose prose-sm max-w-none">
-                <h3 className="mt-0">{title || templates[template]?.title}</h3>
-                <pre className="text-xs font-mono whitespace-pre-wrap bg-gray-50 p-2 rounded-md">
+                <h3 className="mt-0 text-base">{title || templates[template]?.title}</h3>
+                <p className="text-sm text-gray-700 whitespace-pre-wrap">
                   {templates[template]?.content.substring(0, 300)}
                   {templates[template]?.content.length > 300 ? "..." : ""}
-                </pre>
+                </p>
                 <div className="flex flex-wrap gap-1 mt-2">
                   {[...new Set([...tags, ...(templates[template]?.tags || [])])].map((tag) => (
                     <span key={tag} className="rounded-md bg-gray-100 px-1.5 py-0.5 text-xs text-gray-600">

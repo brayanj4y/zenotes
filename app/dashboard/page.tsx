@@ -17,6 +17,7 @@ type View = "notes" | "editor" | "settings" | "detail" | "search" | "tags" | "fa
 export default function Dashboard() {
   const [activeView, setActiveView] = useState<View>("notes")
   const [selectedNote, setSelectedNote] = useState<string | null>(null)
+  const [viewHistory, setViewHistory] = useState<View[]>(["notes"])
   const { notes } = useNotes()
 
   // If there are no notes, show the new note view
@@ -27,20 +28,35 @@ export default function Dashboard() {
   const handleNoteSelect = (id: string) => {
     setSelectedNote(id)
     setActiveView("editor")
+    setViewHistory([...viewHistory, "editor"])
   }
 
   const handleViewChange = (view: View) => {
     setActiveView(view)
+    setViewHistory([...viewHistory, view])
   }
 
   const handleNoteDetail = (id: string) => {
     setSelectedNote(id)
     setActiveView("detail")
+    setViewHistory([...viewHistory, "detail"])
   }
 
   const handleNewNote = (id: string) => {
     setSelectedNote(id)
     setActiveView("editor")
+    setViewHistory([...viewHistory, "editor"])
+  }
+
+  const handleCloseDetail = () => {
+    if (viewHistory.length > 1) {
+      const previousView = viewHistory[viewHistory.length - 2]
+      setActiveView(previousView)
+      setViewHistory(viewHistory.slice(0, -1))
+    } else {
+      setActiveView("notes")
+      setViewHistory(["notes"])
+    }
   }
 
   return (
@@ -51,7 +67,7 @@ export default function Dashboard() {
       )}
       {activeView === "settings" && <SettingsView />}
       {activeView === "detail" && selectedNote && (
-        <NoteDetailView noteId={selectedNote} onClose={() => setActiveView("notes")} />
+        <NoteDetailView noteId={selectedNote} onClose={handleCloseDetail} />
       )}
       {activeView === "search" && <SearchView onNoteSelect={handleNoteSelect} />}
       {activeView === "tags" && <TagsView onNoteSelect={handleNoteSelect} />}

@@ -1,10 +1,8 @@
 "use client"
 
 
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
 import { Slider } from "@/components/ui/slider"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { ChevronDown } from "lucide-react"
@@ -62,52 +60,13 @@ export function SettingsView() {
                 </div>
                 <Slider
                   id="font-size"
-                  min={10}
-                  max={24}
+                  min={12}
+                  max={28}
                   step={1}
                   value={[settings.fontSize]}
                   onValueChange={(value) => updateSettings({ fontSize: value[0] })}
                   className="py-2"
                 />
-              </div>
-
-              <div className="flex items-center justify-between">
-                <Label htmlFor="auto-save">Auto Save</Label>
-                <Switch
-                  id="auto-save"
-                  checked={settings.autoSave}
-                  onCheckedChange={(checked) => updateSettings({ autoSave: checked })}
-                />
-              </div>
-
-              <div className="grid gap-2">
-                <Label>Default View</Label>
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className={`rounded-md border-gray-200 ${settings.defaultView === "split" ? "bg-gray-900 text-white hover:bg-gray-900/90" : "text-gray-700 hover:bg-gray-50"}`}
-                    onClick={() => updateSettings({ defaultView: "split" })}
-                  >
-                    Split
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className={`rounded-md border-gray-200 ${settings.defaultView === "edit" ? "bg-gray-900 text-white hover:bg-gray-900/90" : "text-gray-700 hover:bg-gray-50"}`}
-                    onClick={() => updateSettings({ defaultView: "edit" })}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className={`rounded-md border-gray-200 ${settings.defaultView === "preview" ? "bg-gray-900 text-white hover:bg-gray-900/90" : "text-gray-700 hover:bg-gray-50"}`}
-                    onClick={() => updateSettings({ defaultView: "preview" })}
-                  >
-                    Preview
-                  </Button>
-                </div>
               </div>
             </div>
           </CollapsibleContent>
