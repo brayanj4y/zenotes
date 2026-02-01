@@ -165,7 +165,7 @@ export function ImportNoteDialog({ isOpen, onClose, onImportComplete }: ImportNo
             Cancel
           </Button>
           <Button
-            className="flex-1 rounded-md bg-black text-white hover:bg-black/90"
+            className="flex-1 rounded-md bg-gray-900 text-white hover:bg-gray-900/90"
             onClick={handleImport}
             disabled={!fileContent}
           >

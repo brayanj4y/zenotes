@@ -10,8 +10,9 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { ChevronDown } from "lucide-react"
 import { useSettings } from "@/context/settings-context"
 
+
 export function SettingsView() {
-  const { settings, updateSettings, toggleDarkMode } = useSettings()
+  const { settings, updateSettings } = useSettings()
 
   return (
     <div className="mx-auto max-w-2xl p-6">
@@ -85,7 +86,7 @@ export function SettingsView() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className={`rounded-md border-gray-200 ${settings.defaultView === "split" ? "bg-black text-white hover:bg-black/90" : ""}`}
+                    className={`rounded-md border-gray-200 ${settings.defaultView === "split" ? "bg-gray-900 text-white hover:bg-gray-900/90" : "text-gray-700 hover:bg-gray-50"}`}
                     onClick={() => updateSettings({ defaultView: "split" })}
                   >
                     Split
@@ -93,7 +94,7 @@ export function SettingsView() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className={`rounded-md border-gray-200 ${settings.defaultView === "edit" ? "bg-black text-white hover:bg-black/90" : ""}`}
+                    className={`rounded-md border-gray-200 ${settings.defaultView === "edit" ? "bg-gray-900 text-white hover:bg-gray-900/90" : "text-gray-700 hover:bg-gray-50"}`}
                     onClick={() => updateSettings({ defaultView: "edit" })}
                   >
                     Edit
@@ -101,7 +102,7 @@ export function SettingsView() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className={`rounded-md border-gray-200 ${settings.defaultView === "preview" ? "bg-black text-white hover:bg-black/90" : ""}`}
+                    className={`rounded-md border-gray-200 ${settings.defaultView === "preview" ? "bg-gray-900 text-white hover:bg-gray-900/90" : "text-gray-700 hover:bg-gray-50"}`}
                     onClick={() => updateSettings({ defaultView: "preview" })}
                   >
                     Preview
@@ -112,20 +113,7 @@ export function SettingsView() {
           </CollapsibleContent>
         </Collapsible>
 
-        <Collapsible defaultOpen className="rounded-md border border-gray-100">
-          <CollapsibleTrigger className="flex w-full items-center justify-between p-4 text-left">
-            <h2 className="text-lg font-medium">Theme</h2>
-            <ChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
-          </CollapsibleTrigger>
-          <CollapsibleContent className="border-t border-gray-100 p-4">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="dark-mode">Dark Mode</Label>
-                <Switch id="dark-mode" checked={settings.darkMode} onCheckedChange={toggleDarkMode} />
-              </div>
-            </div>
-          </CollapsibleContent>
-        </Collapsible>
+
       </div>
     </div>
   )

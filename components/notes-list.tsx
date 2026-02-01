@@ -30,13 +30,13 @@ export function NotesList({ onNoteSelect, onNoteDetail }: NotesListProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="h-8 w-8 rounded-md text-black hover:bg-gray-50"
+            className="h-8 w-8 rounded-md text-gray-700 hover:bg-gray-50 hover:text-gray-900"
             onClick={() => setIsImportDialogOpen(true)}
           >
             <Upload className="h-5 w-5" />
             <span className="sr-only">Import Note</span>
           </Button>
-          <Button variant="ghost" size="icon" className="h-8 w-8 rounded-md text-black hover:bg-gray-50">
+          <Button variant="ghost" size="icon" className="h-8 w-8 rounded-md text-gray-700 hover:bg-gray-50 hover:text-gray-900">
             <PlusCircle className="h-5 w-5" />
             <span className="sr-only">New Note</span>
           </Button>
@@ -60,7 +60,7 @@ export function NotesList({ onNoteSelect, onNoteDetail }: NotesListProps) {
       {filteredNotes.length === 0 ? (
         <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 py-12">
           <p className="text-center text-sm text-gray-500">No notes yet</p>
-          <Button className="bg-black text-white hover:bg-black/90">Start Writing</Button>
+          <Button className="bg-gray-900 text-white hover:bg-gray-900/90">Start Writing</Button>
         </div>
       ) : (
         <div className="flex-1 overflow-auto no-scrollbar">

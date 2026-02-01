@@ -2,7 +2,6 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Space_Grotesk } from "next/font/google"
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
 import { NotesProvider } from "@/context/notes-context"
 import { SettingsProvider } from "@/context/settings-context"
 import { Toaster } from "@/components/ui/toaster"
@@ -24,13 +23,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={`${spaceGrotesk.variable} font-sans antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          <SettingsProvider>
-            <NotesProvider>{children}</NotesProvider>
-          </SettingsProvider>
-        </ThemeProvider>
+        <SettingsProvider>
+          <NotesProvider>{children}</NotesProvider>
+        </SettingsProvider>
         <Toaster />
       </body>
     </html>

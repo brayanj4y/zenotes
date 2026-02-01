@@ -105,7 +105,7 @@ export function NewNoteView({ onNoteCreated }: NewNoteViewProps) {
                   key={key}
                   variant={template === key ? "default" : "outline"}
                   className={`h-auto py-3 justify-start ${
-                    template === key ? "bg-black text-white" : "border-gray-200"
+                    template === key ? "bg-gray-900 text-white" : "border-gray-200"
                   }`}
                   onClick={() => setTemplate(key)}
                 >
@@ -148,7 +148,7 @@ export function NewNoteView({ onNoteCreated }: NewNoteViewProps) {
             </div>
           </div>
 
-          <Button className="w-full bg-black text-white hover:bg-black/90" onClick={createNote}>
+          <Button className="w-full bg-gray-900 text-white hover:bg-gray-900/90" onClick={createNote}>
             Create Note
           </Button>
         </div>
