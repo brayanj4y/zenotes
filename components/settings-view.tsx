@@ -3,7 +3,6 @@
 
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Slider } from "@/components/ui/slider"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { ChevronDown } from "lucide-react"
 import { useSettings } from "@/context/settings-context"
@@ -46,31 +45,7 @@ export function SettingsView() {
           </CollapsibleContent>
         </Collapsible>
 
-        <Collapsible defaultOpen className="rounded-md border border-gray-100">
-          <CollapsibleTrigger className="flex w-full items-center justify-between p-4 text-left">
-            <h2 className="text-lg font-medium">Editor</h2>
-            <ChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
-          </CollapsibleTrigger>
-          <CollapsibleContent className="border-t border-gray-100 p-4">
-            <div className="space-y-4">
-              <div className="grid gap-2">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="font-size">Font Size: {settings.fontSize}px</Label>
-                  <span className="text-sm text-gray-500">{settings.fontSize}px</span>
-                </div>
-                <Slider
-                  id="font-size"
-                  min={12}
-                  max={28}
-                  step={1}
-                  value={[settings.fontSize]}
-                  onValueChange={(value) => updateSettings({ fontSize: value[0] })}
-                  className="py-2"
-                />
-              </div>
-            </div>
-          </CollapsibleContent>
-        </Collapsible>
+
 
 
       </div>
