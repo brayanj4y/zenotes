@@ -143,8 +143,8 @@ export function RichTextEditor({ value, onChange, fontSize }: RichTextEditorProp
 
       <div className="flex-1 overflow-auto">
         <div
-          className="p-6 font-sans outline-none focus:outline-none"
-          style={{ fontSize: `${fontSize}px` }}
+          className="p-6 font-sans outline-none focus:outline-none ProseMirror"
+          style={{ fontSize: `${fontSize}px`, lineHeight: 1.6 }}
         >
           <EditorContent editor={editor} />
         </div>

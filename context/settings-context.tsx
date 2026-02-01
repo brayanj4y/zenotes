@@ -6,8 +6,6 @@ interface Settings {
   name: string
   email: string
   fontSize: number
-  autoSave: boolean
-  defaultView: "split" | "edit" | "preview"
 }
 
 interface SettingsContextType {
@@ -18,9 +16,7 @@ interface SettingsContextType {
 const defaultSettings: Settings = {
   name: "Alex Kim",
   email: "alex@zenotes.app",
-  fontSize: 14,
-  autoSave: true,
-  defaultView: "split",
+  fontSize: 16,
 }
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined)

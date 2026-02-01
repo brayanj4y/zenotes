@@ -45,32 +45,7 @@ export default function EditorView({ noteId, onDetailView }: EditorViewProps) {
     }
   }, [note])
 
-  // Save note when content changes (debounced)
-  useEffect(() => {
-    if (!isLoaded || !note || !settings.autoSave) return
 
-    // Clear any existing timer
-    if (autoSaveTimerRef.current) {
-      clearTimeout(autoSaveTimerRef.current)
-    }
-
-    // Set a new timer for auto-save
-    autoSaveTimerRef.current = setTimeout(() => {
-      // Only save if content has changed from last save
-      if (content !== lastSavedContentRef.current) {
-        setIsSaving(true)
-        updateNote(noteId, { title, content })
-        lastSavedContentRef.current = content
-        setIsSaving(false)
-      }
-    }, 2000)
-
-    return () => {
-      if (autoSaveTimerRef.current) {
-        clearTimeout(autoSaveTimerRef.current)
-      }
-    }
-  }, [title, content, noteId, updateNote, isLoaded, note, settings.autoSave])
 
   // Manual save function
   const handleSave = useCallback(() => {
@@ -219,17 +194,15 @@ export default function EditorView({ noteId, onDetailView }: EditorViewProps) {
             <Save className="mr-1 h-3.5 w-3.5" />
             Export
           </Button>
-          {!settings.autoSave && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-8 rounded-md border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-              onClick={handleSave}
-              title="Save"
-            >
-              Save
-            </Button>
-          )}
+          <Button
+            variant="outline"
+            size="sm"
+            className="h-8 rounded-md border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+            onClick={handleSave}
+            title="Save"
+          >
+            Save
+          </Button>
           <Button
             variant="ghost"
             size="icon"

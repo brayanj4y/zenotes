@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { FileText, Tag, Star, Search, Settings, User, LogOut, Plus } from "lucide-react"
+import { FileText, Tag, Star, Search, Settings, User, Plus } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
@@ -100,25 +100,8 @@ export function Sidebar({ onViewChange, currentView, onLogout }: SidebarProps) {
               </div>
               <DropdownMenuItem className="rounded-md">Account</DropdownMenuItem>
               <DropdownMenuItem className="rounded-md">Upgrade</DropdownMenuItem>
-              <DropdownMenuItem className="rounded-md text-red-500" onClick={onLogout}>
-                Logout
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button
-                onClick={onLogout}
-                className="flex h-8 w-8 items-center justify-center rounded-md text-gray-500 hover:text-red-500"
-              >
-                <LogOut className="h-5 w-5" />
-              </button>
-            </TooltipTrigger>
-            <TooltipContent side="right" className="border-none bg-black text-white">
-              <p>Logout</p>
-            </TooltipContent>
-          </Tooltip>
         </div>
       </aside>
     </TooltipProvider>
