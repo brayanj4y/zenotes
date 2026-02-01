@@ -44,6 +44,7 @@ export function RichTextEditor({ value, onChange, fontSize }: RichTextEditorProp
         class: "prose prose-sm max-w-none outline-none focus:outline-none",
       },
     },
+    immediatelyRender: false,
   })
 
   if (!editor) {
