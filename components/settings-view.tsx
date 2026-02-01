@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -12,8 +12,6 @@ import { useSettings } from "@/context/settings-context"
 
 export function SettingsView() {
   const { settings, updateSettings, toggleDarkMode } = useSettings()
-  const [name, setName] = useState("Alex Kim")
-  const [email, setEmail] = useState("alex@zenotes.app")
 
   return (
     <div className="mx-auto max-w-2xl p-6">
@@ -31,8 +29,8 @@ export function SettingsView() {
                 <Label htmlFor="name">Display Name</Label>
                 <Input
                   id="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={settings.name}
+                  onChange={(e) => updateSettings({ name: e.target.value })}
                   className="h-9 border-gray-200"
                 />
               </div>
@@ -40,8 +38,8 @@ export function SettingsView() {
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={settings.email}
+                  onChange={(e) => updateSettings({ email: e.target.value })}
                   className="h-9 border-gray-200"
                 />
               </div>

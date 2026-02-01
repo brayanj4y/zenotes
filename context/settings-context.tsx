@@ -3,6 +3,8 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 
 interface Settings {
+  name: string
+  email: string
   fontSize: number
   autoSave: boolean
   darkMode: boolean
@@ -16,6 +18,8 @@ interface SettingsContextType {
 }
 
 const defaultSettings: Settings = {
+  name: "Alex Kim",
+  email: "alex@zenotes.app",
   fontSize: 14,
   autoSave: true,
   darkMode: false,
@@ -32,7 +36,11 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     try {
       const savedSettings = localStorage.getItem("zenotes-settings")
       if (savedSettings) {
-        setSettings(JSON.parse(savedSettings))
+        // Merge saved settings with default settings to ensure all keys exist
+        setSettings((prev) => ({
+          ...prev,
+          ...JSON.parse(savedSettings),
+        }))
       }
     } catch (error) {
       console.error("Error loading settings from localStorage:", error)
