@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react"
 import { Button } from "@/components/ui/button"
-import { Keyboard, Info, Star } from "lucide-react"
+import { Keyboard, Info, Star, Save } from "lucide-react"
 import { useNotes } from "@/context/notes-context"
 import { useSettings } from "@/context/settings-context"
 import { useToast } from "@/hooks/use-toast"
@@ -108,11 +108,11 @@ export default function EditorView({ noteId, onDetailView }: EditorViewProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="h-8 w-8 rounded-md text-lg hover:bg-gray-100"
+            className="h-8 w-8 rounded-md text-gray-500 hover:text-gray-900"
             onClick={handleSave}
             title="Save note"
           >
-            💾
+            <Save className="h-4 w-4" />
           </Button>
           <Button
             variant="ghost"
