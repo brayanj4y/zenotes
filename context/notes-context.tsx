@@ -84,31 +84,7 @@ const sampleNotes: Note[] = [
   {
     id: "sample-1",
     title: "Welcome to Zenotes",
-    content: `# Welcome to Zenotes!
-
-This is your first note. Here are some things you can do:
-
-## Features
-
-- Create new notes with different templates
-- Organize notes with tags
-- Mark important notes as favorites
-- Search through all your notes
-- Format your notes with Markdown
-
-## Markdown Tips
-
-You can use Markdown to format your notes:
-
-- **Bold text** with \`**double asterisks**\`
-- *Italic text* with \`*single asterisks*\`
-- # Headers with \`# hashtags\`
-- Lists with \`- dashes\` or \`1. numbers\`
-- [Links](https://example.com) with \`[text](url)\`
-- Code blocks with \`\`\`backticks\`\`\`
-
-Enjoy using Zenotes!
-`,
+    content: `<h2>Welcome to Zenotes!</h2><p>This is your first note. Here are some things you can do:</p><h3>Features</h3><ul><li>Create new notes with different templates</li><li>Organize notes with tags</li><li>Mark important notes as favorites</li><li>Search through all your notes</li><li>Format your notes with rich text editing</li></ul><h3>Rich Text Editing Tips</h3><p>You can use the formatting toolbar to:</p><ul><li><strong>Make text bold</strong> by clicking the bold button</li><li><em>Make text italic</em> by clicking the italic button</li><li>Create headers for different sections</li><li>Create lists and organize your thoughts</li><li>Add code blocks for snippets</li></ul><p>Enjoy using Zenotes!</p>`,
     tags: ["welcome", "tutorial"],
     isFavorite: true,
     created: new Date().toISOString(),
